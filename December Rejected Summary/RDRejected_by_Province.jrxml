@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rejected_by_Province" pageWidth="800" pageHeight="550" orientation="Landscape" whenNoDataType="NoPages" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="36a541a2-bada-4fad-8a60-c89426597478">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rejected_by_Province" pageWidth="780" pageHeight="550" orientation="Landscape" whenNoDataType="NoPages" columnWidth="780" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="36a541a2-bada-4fad-8a60-c89426597478">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Domestic Production"/>
 	<property name="net.sf.jasperreports.export.xls.sheet.name" value="NEW_VALUE"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -182,7 +173,7 @@ GROUP BY ar.app_province]]>
 	<title>
 		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="0" width="800" height="30" backcolor="#0C87FA" uuid="198afc08-f7ac-4369-a06b-ed69eb0a0ffa"/>
+				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="0" y="0" width="780" height="30" backcolor="#0C87FA" uuid="198afc08-f7ac-4369-a06b-ed69eb0a0ffa"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Verdana" size="16" isBold="true"/>
 				</textElement>
@@ -193,7 +184,7 @@ GROUP BY ar.app_province]]>
 	<summary>
 		<band height="60" splitType="Stretch">
 			<componentElement>
-				<reportElement stretchType="ContainerHeight" x="0" y="0" width="800" height="60" uuid="26638e27-3572-4666-b9b6-9e65c0374b44">
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="780" height="60" uuid="26638e27-3572-4666-b9b6-9e65c0374b44">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -204,11 +195,11 @@ GROUP BY ar.app_province]]>
 					<datasetRun subDataset="Province" uuid="09a3bb58-ea77-4947-aada-f4af356016a2">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="140" uuid="6bdbfa06-ad8b-4783-9972-6c57328910d4">
+					<jr:column width="130" uuid="6bdbfa06-ad8b-4783-9972-6c57328910d4">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="140" height="30" uuid="3da17abc-8ea2-4a54-910f-4be20d798c7e">
+								<reportElement x="0" y="0" width="130" height="30" uuid="3da17abc-8ea2-4a54-910f-4be20d798c7e">
 									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -219,7 +210,7 @@ GROUP BY ar.app_province]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="140" height="30" uuid="9c543bc6-a39b-48e2-b49b-d9f0733fe353">
+								<reportElement x="0" y="0" width="130" height="30" uuid="9c543bc6-a39b-48e2-b49b-d9f0733fe353">
 									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -483,11 +474,11 @@ GROUP BY ar.app_province]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="70" uuid="ef6c5f33-1e2f-4a7d-84e7-62ce9dc47536">
+					<jr:column width="60" uuid="ef6c5f33-1e2f-4a7d-84e7-62ce9dc47536">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="70" height="30" uuid="50c50a12-e0ac-4e77-8534-471392a24ad1"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="50c50a12-e0ac-4e77-8534-471392a24ad1"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Calibri" size="11" isBold="true"/>
 								</textElement>
@@ -496,7 +487,7 @@ GROUP BY ar.app_province]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="70" height="30" uuid="9c2a0b6a-06e1-4f80-b70f-92f07d0b69c2"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="9c2a0b6a-06e1-4f80-b70f-92f07d0b69c2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Calibri"/>
 								</textElement>
