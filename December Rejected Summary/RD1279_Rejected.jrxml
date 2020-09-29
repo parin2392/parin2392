@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-12-24T10:52:31 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ND2802_Rejected" pageWidth="1000" pageHeight="800" whenNoDataType="AllSectionsNoDetail" columnWidth="1000" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="5f7b9b15-03e0-4b8e-9e4f-20e51d9eef46">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Domestic Production"/>
+	<property name="net.sf.jasperreports.export.xls.one.page.per.sheet" value="true"/>
+	<property name="net.sf.jasperreports.page.break.no.pagination" value="apply"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet1" value="Rejected by Province"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet2" value="Rejected by Appraisers"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet3" value="Reject Description by Month"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet4" value="Region Name YTD"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet5" value="Region Name Monthly"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet6" value="Monthly Rejected Data"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet7" value="Appraiser Completed Orders"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.names.sheet8" value="Completed Orders by Appraiser"/>
+	<property name="ireport.jasperserver.url" value="https://insight.inhouseusa.com/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.user" value="superuser"/>
+	<property name="ireport.jasperserver.report.resource" value="/organizations/organization_1/NAS/Internal/Monthly_Reports/Additional_Reports/Jessica_Rejected_Files/ND2802_Rejected_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/organization_1/NAS/Internal/Monthly_Reports/Additional_Reports/Jessica_Rejected_Files/ND2802_Rejected"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 1;]]>
+	</queryString>
+	<group name="Rejected_by_province">
+		<groupHeader>
+			<band height="53">
+				<break>
+					<reportElement x="0" y="52" width="100" height="1" uuid="8583913b-707d-4fd9-98ce-9a22896c0d95"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="990" height="52" uuid="e9ea36de-9ebe-4b0f-9b56-8cacbedd94f4"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDRejected_by_Province.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Rejected_by_Appraisers">
+		<groupHeader>
+			<band height="65">
+				<break>
+					<reportElement x="0" y="64" width="100" height="1" uuid="f620e942-3bd5-4e0b-a944-96f962e1e816"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="989" height="60" uuid="1872b5a5-aad5-4d0f-80fc-7bae9bded07a"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDRejected by Appraisers.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Rejected_Description_by_Month">
+		<groupHeader>
+			<band height="61">
+				<break>
+					<reportElement x="0" y="60" width="100" height="1" uuid="5183ac4b-a65e-45aa-a489-361a2934d48e"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="989" height="60" uuid="94a51e6c-3b08-4a07-9f44-b3810e191435"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDReject_Description_by_Month.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Region_Name_YTD">
+		<groupHeader>
+			<band height="91">
+				<break>
+					<reportElement x="0" y="90" width="100" height="1" uuid="cc559428-53c2-40c9-a405-5db8458b8e63"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="989" height="90" uuid="45ee5db6-598d-4aee-8a1f-f379b3c3d936"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDRegion_Name_YTD.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Region_Name_Monthly">
+		<groupHeader>
+			<band height="74">
+				<break>
+					<reportElement x="0" y="73" width="100" height="1" uuid="5fc42710-af5a-4ee0-804e-22f178fc1a97"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="989" height="73" uuid="5368c37d-bc6c-4ad5-b175-e45eec440245"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDRegion_Name_Monthly.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Monthly Data">
+		<groupHeader>
+			<band height="61">
+				<break>
+					<reportElement x="0" y="60" width="100" height="1" uuid="0376df5f-3581-459a-a327-2775ec07fad5"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="989" height="60" uuid="619eb11b-dbd0-45e2-a31d-6dab3e850bc7"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDMonthly data.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Appraiser Monthly Data">
+		<groupHeader>
+			<band height="80">
+				<break>
+					<reportElement x="0" y="79" width="100" height="1" uuid="908c251a-e1cb-40a0-ba7c-c98a93c40f12"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="989" height="79" uuid="bcfd375a-5dbd-4746-9283-21d7c3acddeb"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDAppraiser Monthly data.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Completed Orders by Appraiser">
+		<groupHeader>
+			<band height="60">
+				<break>
+					<reportElement x="0" y="59" width="100" height="1" uuid="f570373e-c45c-4050-b9f1-37ace4e88aa6"/>
+				</break>
+				<subreport>
+					<reportElement x="0" y="0" width="989" height="59" uuid="ce2f2402-8f25-4919-8c87-925b33a5bbf8"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["RDCompleted Orders by Appraisers.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

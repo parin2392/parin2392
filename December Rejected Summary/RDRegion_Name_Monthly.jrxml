@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2019-01-01T10:03:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Region_Name_Monthly" pageWidth="2598" pageHeight="550" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="2598" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="41b7f49c-a223-421e-83b1-08ca1d022b2f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Domestic Production"/>
+	<property name="net.sf.jasperreports.export.xls.one.page.per.sheet" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.name" value="Rejected by Region Name"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="RegionName" uuid="e222fc73-c937-47c6-b7ed-27ca4a78577f">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Domestic Production"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT jan.`num` as 'Top 20',jan.`JAN`,jan.`JAN Count`, feb.`FEB`,feb.`FEB Count`, mar.`MAR`,mar.`MAR Count`, apr.`APR`,apr.`APR Count`, may.`MAY`,may.`MAY Count`,
+jun.`JUN`,jun.`JUN Count`, jul.`JUL`,jul.`JUL Count`, aug.`AUG`,aug.`AUG Count`, sep.`SEP`,sep.`SEP Count`, oct.`OCT`,oct.`OCT Count`, nov.`NOV`,nov.`NOV Count`, `dec`.`DEC`,`dec`.`DEC Count`
+from (SELECT (@row_number1:=@row_number1 + 1) AS 'Num', t1.* FROM (SELECT r.REGION_NAME AS 'JAN',count(*) AS 'JAN Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE     ar.comp_date >= DATE_FORMAT(NOW(), '2018-01-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-02-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number1:=0) AS t2) as jan
+# Join Feb    
+left join (SELECT 
+    (@row_number2:=@row_number2 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'FEB',count(*) AS 'FEB Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE     ar.comp_date >= DATE_FORMAT(NOW(), '2018-02-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-03-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number2:=0) AS t2) as feb
+on jan.Num = feb.Num
+#join Mar
+left join (SELECT 
+   (@row_number3:=@row_number3 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'MAR',count(*) AS 'MAR Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-03-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-04-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number3:=0) AS t2) as mar
+on jan.Num = mar.Num
+#join Apr
+left join (SELECT 
+   (@row_number4:=@row_number4 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'APR',count(*) AS 'APR Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-04-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-05-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number4:=0) AS t2) as apr
+on jan.Num = apr.Num
+#join May
+left join (SELECT 
+   (@row_number5:=@row_number5 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'MAY',count(*) AS 'MAY Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-05-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-06-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number5:=0) AS t2) as may
+on jan.Num = may.Num
+#join June
+left join (SELECT 
+   (@row_number6:=@row_number6 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'JUN',count(*) AS 'JUN Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr    
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-06-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-07-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number6:=0) AS t2) as jun
+on jan.Num = jun.Num
+#join Jul
+left join (SELECT 
+   (@row_number7:=@row_number7 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'JUL',count(*) AS 'JUL Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+                LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-07-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-08-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number7:=0) AS t2) as jul
+on jan.Num = jul.Num
+#join Aug
+left join (SELECT 
+   (@row_number8:=@row_number8 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'AUG',count(*) AS 'AUG Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+                LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-08-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-09-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number8:=0) AS t2) as aug
+on jan.Num = aug.Num
+#join Sep
+left join (SELECT 
+   (@row_number9:=@row_number9 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'SEP',count(*) AS 'SEP Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-09-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-10-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number9:=0) AS t2) as sep
+on jan.Num = sep.Num
+#join Oct
+left join (SELECT 
+   (@row_number10:=@row_number10 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'OCT',count(*) AS 'OCT Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id    
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-10-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-11-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number10:=0) AS t2) as oct
+on jan.Num = oct.Num
+#join Nov
+left join (SELECT 
+   (@row_number11:=@row_number11 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'NOV',count(*) AS 'NOV Count'
+   FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id 
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-11-01 00:00:00')
+    and ar.comp_date <= DATE_FORMAT(NOW(), '2018-12-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number11:=0) AS t2) as nov
+on jan.Num = nov.Num
+#join Dec
+left join (SELECT 
+   (@row_number12:=@row_number12 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'DEC',count(*) AS 'DEC Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id 
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-12-01 00:00:00')
+    and ar.comp_date <= DATE_FORMAT(NOW(), '2019-01-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number12:=0) AS t2) as `dec`
+on jan.Num = `dec`.Num;]]>
+		</queryString>
+		<field name="Top 20" class="java.lang.Integer"/>
+		<field name="JAN" class="java.lang.String"/>
+		<field name="JAN Count" class="java.lang.Long"/>
+		<field name="FEB" class="java.lang.String"/>
+		<field name="FEB Count" class="java.lang.Long"/>
+		<field name="MAR" class="java.lang.String"/>
+		<field name="MAR Count" class="java.lang.Long"/>
+		<field name="APR" class="java.lang.String"/>
+		<field name="APR Count" class="java.lang.Long"/>
+		<field name="MAY" class="java.lang.String"/>
+		<field name="MAY Count" class="java.lang.Long"/>
+		<field name="JUN" class="java.lang.String"/>
+		<field name="JUN Count" class="java.lang.Long"/>
+		<field name="JUL" class="java.lang.String"/>
+		<field name="JUL Count" class="java.lang.Long"/>
+		<field name="AUG" class="java.lang.String"/>
+		<field name="AUG Count" class="java.lang.Long"/>
+		<field name="SEP" class="java.lang.String"/>
+		<field name="SEP Count" class="java.lang.Long"/>
+		<field name="OCT" class="java.lang.String"/>
+		<field name="OCT Count" class="java.lang.Long"/>
+		<field name="NOV" class="java.lang.String"/>
+		<field name="NOV Count" class="java.lang.Long"/>
+		<field name="DEC" class="java.lang.String"/>
+		<field name="DEC Count" class="java.lang.Long"/>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT jan.`num` as 'Top 20',jan.`JAN`,jan.`JAN Count`, feb.`FEB`,feb.`FEB Count`, mar.`MAR`,mar.`MAR Count`, apr.`APR`,apr.`APR Count`, may.`MAY`,may.`MAY Count`,
+jun.`JUN`,jun.`JUN Count`, jul.`JUL`,jul.`JUL Count`, aug.`AUG`,aug.`AUG Count`, sep.`SEP`,sep.`SEP Count`, oct.`OCT`,oct.`OCT Count`, nov.`NOV`,nov.`NOV Count`, `dec`.`DEC`,`dec`.`DEC Count`
+from (SELECT (@row_number1:=@row_number1 + 1) AS 'Num', t1.* FROM (SELECT r.REGION_NAME AS 'JAN',count(*) AS 'JAN Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE     ar.comp_date >= DATE_FORMAT(NOW(), '2018-01-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-02-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number1:=0) AS t2) as jan
+# Join Feb    
+left join (SELECT 
+    (@row_number2:=@row_number2 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'FEB',count(*) AS 'FEB Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE     ar.comp_date >= DATE_FORMAT(NOW(), '2018-02-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-03-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number2:=0) AS t2) as feb
+on jan.Num = feb.Num
+#join Mar
+left join (SELECT 
+   (@row_number3:=@row_number3 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'MAR',count(*) AS 'MAR Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-03-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-04-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number3:=0) AS t2) as mar
+on jan.Num = mar.Num
+#join Apr
+left join (SELECT 
+   (@row_number4:=@row_number4 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'APR',count(*) AS 'APR Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-04-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-05-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number4:=0) AS t2) as apr
+on jan.Num = apr.Num
+#join May
+left join (SELECT 
+   (@row_number5:=@row_number5 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'MAY',count(*) AS 'MAY Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-05-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-06-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number5:=0) AS t2) as may
+on jan.Num = may.Num
+#join June
+left join (SELECT 
+   (@row_number6:=@row_number6 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'JUN',count(*) AS 'JUN Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr    
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-06-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-07-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number6:=0) AS t2) as jun
+on jan.Num = jun.Num
+#join Jul
+left join (SELECT 
+   (@row_number7:=@row_number7 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'JUL',count(*) AS 'JUL Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+                LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-07-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-08-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number7:=0) AS t2) as jul
+on jan.Num = jul.Num
+#join Aug
+left join (SELECT 
+   (@row_number8:=@row_number8 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'AUG',count(*) AS 'AUG Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+                LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-08-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-09-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number8:=0) AS t2) as aug
+on jan.Num = aug.Num
+#join Sep
+left join (SELECT 
+   (@row_number9:=@row_number9 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'SEP',count(*) AS 'SEP Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-09-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-10-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number9:=0) AS t2) as sep
+on jan.Num = sep.Num
+#join Oct
+left join (SELECT 
+   (@row_number10:=@row_number10 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'OCT',count(*) AS 'OCT Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id    
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-10-01 00:00:00')
+and ar.comp_date < DATE_FORMAT(NOW(), '2018-11-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number10:=0) AS t2) as oct
+on jan.Num = oct.Num
+#join Nov
+left join (SELECT 
+   (@row_number11:=@row_number11 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'NOV',count(*) AS 'NOV Count'
+   FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id 
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-11-01 00:00:00')
+    and ar.comp_date <= DATE_FORMAT(NOW(), '2018-12-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number11:=0) AS t2) as nov
+on jan.Num = nov.Num
+#join Dec
+left join (SELECT 
+   (@row_number12:=@row_number12 + 1) AS 'Num', t1.*
+FROM
+    (SELECT r.REGION_NAME AS 'DEC',count(*) AS 'DEC Count'
+    FROM app_request ar
+    INNER JOIN app_request_reject_reason_ref arrrr ON arrrr.app_request_nbr = ar.app_request_nbr
+    LEFT JOIN region r ON ar.app_region_id = r.region_id 
+    WHERE ar.comp_date >= DATE_FORMAT(NOW(), '2018-12-01 00:00:00')
+    and ar.comp_date <= DATE_FORMAT(NOW(), '2019-01-01 00:00:00')
+    GROUP BY r.REGION_NAME
+    ORDER BY COUNT(*) DESC LIMIT 20) AS t1,
+    (SELECT @row_number12:=0) AS t2) as `dec`
+on jan.Num = `dec`.Num;]]>
+	</queryString>
+	<field name="Top 20" class="java.lang.Integer"/>
+	<field name="JAN" class="java.lang.String"/>
+	<field name="JAN Count" class="java.lang.Long"/>
+	<field name="FEB" class="java.lang.String"/>
+	<field name="FEB Count" class="java.lang.Long"/>
+	<field name="MAR" class="java.lang.String"/>
+	<field name="MAR Count" class="java.lang.Long"/>
+	<field name="APR" class="java.lang.String"/>
+	<field name="APR Count" class="java.lang.Long"/>
+	<field name="MAY" class="java.lang.String"/>
+	<field name="MAY Count" class="java.lang.Long"/>
+	<field name="JUN" class="java.lang.String"/>
+	<field name="JUN Count" class="java.lang.Long"/>
+	<field name="JUL" class="java.lang.String"/>
+	<field name="JUL Count" class="java.lang.Long"/>
+	<field name="AUG" class="java.lang.String"/>
+	<field name="AUG Count" class="java.lang.Long"/>
+	<field name="SEP" class="java.lang.String"/>
+	<field name="SEP Count" class="java.lang.Long"/>
+	<field name="OCT" class="java.lang.String"/>
+	<field name="OCT Count" class="java.lang.Long"/>
+	<field name="NOV" class="java.lang.String"/>
+	<field name="NOV Count" class="java.lang.Long"/>
+	<field name="DEC" class="java.lang.String"/>
+	<field name="DEC Count" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="2590" height="30" uuid="6f98699f-f45a-4b19-9b16-ddf1c1678da2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rejected by Region Name - Each Month Indicates Top 20 Region Name"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="55" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="3" width="2594" height="52" uuid="5749122b-4ab4-43fa-81c8-c50f9501a9f2">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="RegionName" uuid="cf061310-5077-455c-a341-b5ed0a06800a">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="62" uuid="a185599a-cecc-47d5-ab83-5dc594cd614a">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="62" height="24" uuid="72adbf59-1167-497e-85f5-415dd3ea6888"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Top 20]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="62" height="24" uuid="44de5fd8-0cc1-43de-a1fb-1bdd7cfdef14"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Top 20}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="dd35707c-a50e-47c3-9239-de57c5f3a45b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="d3aa379e-7302-4ba1-adaf-8b7d2cd579e0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JAN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="c1fecc9d-6219-43a8-9e54-021d530be555"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JAN}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="63d45b5c-2447-4a58-a8d5-37623e04b9ee">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="6a2e2739-273b-4dea-adf5-46e1f1f45b9f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JAN Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="d6628c33-614b-49f2-95fb-56547b06dc0b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JAN Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="a0ab6a73-1e3e-4e69-8503-9c42ad9858a0">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="5676c8ad-0fe8-47d7-9816-7e6ab64d0624"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[FEB]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="c7e76a6c-3341-46ed-be01-1a161fab5669"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{FEB}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="9ff9ff55-d3c9-43e7-91aa-720cf5897dd5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="d35eaa3a-c422-4a7f-a466-221bc6451b95"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[FEB Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="1de21f11-e422-4cc0-aab6-02744d2713ab"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{FEB Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="d330f1de-9ffc-44b8-a68e-a837c4f39071">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="9adcc8e4-60b2-4183-a0ec-7e067cf09f73"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[MAR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="f79e0a0a-d853-4d65-8a8a-4e95fb47b613"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MAR}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="2aa289ec-5abe-45b1-9457-7a374e0fae8e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="decb3f04-be1d-45fa-9039-98a9164a3af0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[MAR Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="00f748de-857e-4f7e-b568-01901a3519a0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MAR Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="7e7b7130-807c-414d-8547-715ae5b76d28">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="f3e801b4-a230-4527-8699-fda524cdf9de"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[APR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="0c740a9b-4f6e-480c-8797-3a75a1f75355"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{APR}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="ec3bdaa2-efeb-4517-8ea6-98d1b50856db">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="0ce7c6d6-e29e-4c48-a200-7d77dddeab47"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[APR Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="3c62e9e6-ec00-4c54-8425-9c49230cd9bd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{APR Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="fd59ec47-7c70-4d41-8ed3-cf5723039740">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="6476abf2-e613-41e4-a721-581d9cd47792"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[MAY]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="56928f88-20fe-4c2f-b023-9e39c9e5fcf4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MAY}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="e2cd8ff9-eb86-4241-8f41-e9c012737b9c">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="25add2f5-9e2f-4fe6-be61-0db32306fc22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[MAY Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="a361cec5-5db3-48b5-b4e7-249beb84d7bc"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MAY Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="4485648e-c5ca-4628-ab78-49a02b350a18">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column12"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="25a606aa-c8cd-4e5f-83eb-f1c14ddc1dad"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JUN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="155f97f0-1cda-4249-9598-2244b4b84ce7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JUN}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="44815a3e-9a73-46c1-9f37-b3207dd67845">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column13"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="fa79791b-cbeb-417a-9742-63cbc7d36023"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JUN Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="f3d91953-83d5-4b73-bae4-9af9eab35b51"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JUN Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="5306e071-ef66-4976-bdfe-dc6286e9ffe7">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column14"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="d879fb32-f8c7-4a2f-ba78-74bfbc47886f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JUL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="41c3316f-4209-4f85-b159-682a536cd2d5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JUL}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="e127a6ac-cb69-492d-84e9-a26084241f14">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column15"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="df7fc84d-6d37-4b9f-93e9-912d39d51f2d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JUL Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="dad0ae6f-1936-4dba-828f-c34b98c5b0f8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{JUL Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="bc22a1d6-9aa3-47e0-a29c-27553b2e42ea">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column16"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="abf9397b-440f-40cc-af05-9a080cc740e4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[AUG]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="438d8b6b-3fc9-4522-bb9d-54d8a84a4ee7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{AUG}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="50acc8bd-5d44-432c-8f80-863495df21f8">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column17"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="4610ae9d-4bfc-49d3-b883-879ba4b0c004"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[AUG Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="cf62240c-4e40-40f9-ab2c-7e05f8ffdc29"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{AUG Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="944c2164-6921-4a67-926a-f4c0d728a4eb">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column18"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="16f9f491-a313-40d9-aaf2-b428b1fbe965"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[SEP]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="807c5787-1ee9-45b8-9101-7f513d06c794"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{SEP}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="0c857054-8562-46e0-941a-94672d269c52">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column19"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="d54fb811-c362-43b8-8c71-ab58f1bbe87d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[SEP Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="6ac167e9-47e9-4718-9b37-d8804302941e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{SEP Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="3e615f17-ac83-47da-9c09-b95a8920cc90">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column20"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="67c9d34c-5931-4560-b06b-d132f00cd3fb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[OCT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="e4be839c-6bd0-4b01-95c4-de98b792f16b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{OCT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="73b6974e-c654-4040-afd0-1e56b27bcd0d">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column21"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="604e9983-2b98-489c-8143-d5490ee4356a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[OCT Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="00e3f173-148a-4867-9ea9-4dc3ea6e7f90"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{OCT Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="acc76b75-8ff3-47db-82d6-b16f294e2987">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column22"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="a0020657-c2bf-4354-a514-55b36ef4eac8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NOV]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="e605932e-b2f1-4988-9d8b-20d1195fd4de"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOV}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="99e4c3d4-2abc-4fe2-ba54-82f97c2a3cc7">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column23"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="8325e836-6715-47a9-9d53-dbd675927d60"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NOV Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="c5130d52-1bff-4cd7-b394-0168a6669f67"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOV Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="05129532-c39c-496e-b8cd-7b736471309b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column24"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="106" height="24" uuid="9e430e05-b164-4171-a73e-b4094b986cf4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DEC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="106" height="24" uuid="df56b62f-0b02-4379-ba53-07f136f2c3a9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DEC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="94" uuid="3df9381a-1755-43a3-88da-db4fb8d442aa">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column25"/>
+						<jr:columnHeader style="Table_CH" height="24">
+							<staticText>
+								<reportElement x="0" y="0" width="94" height="24" uuid="61f7ff48-e0b5-4840-ba93-de3e134e1088"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DEC Count]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="24">
+							<textField>
+								<reportElement x="0" y="0" width="94" height="24" uuid="5adb2698-12e7-4120-a979-4d0a2e434da9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DEC Count}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
